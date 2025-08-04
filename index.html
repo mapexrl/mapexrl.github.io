@@ -368,8 +368,8 @@
                         <a href="https://mapex-explorer.github.io" class="dropdown-item" target="_blank">
                           MapEx Explorer
                         </a>
-                        <a href="https://mapexrl.github.io/" class="dropdown-item" target="_blank">
-                          MapExRL
+                        <a href="https://pipe-planner.github.io/" class="dropdown-item" target="_blank">
+                          PIPE Planner
                         </a>
                       </div>
                     </div>
@@ -403,7 +403,7 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              Path planning for robotic exploration is challenging, requiring reasoning over unknown spaces and anticipating future observations. Efficient exploration requires selecting budget-constrained paths that maximize information gain. Despite advances in autonomous exploration, existing algorithms still fall short of human performance, particularly in structured environments where predictive cues exist but are underutilized. Guided by insights from our user study, we introduce MapExRL, which improves robot exploration efficiency in structured indoor environments by enabling longer-horizon planning through a learned policy and global map predictions. Unlike many learning-based exploration methods that use motion primitives as the action space, our approach leverages frontiers for more efficient model learning and longer horizon reasoning. Our framework generates global map predictions from the observed map, which our policy utilizes, along with the prediction uncertainty, estimated sensor coverage, frontier distance, and remaining distance budget, to assess the strategic long-term value of frontiers. By leveraging multiple frontier scoring methods and additional context, our policy makes more informed decisions at each stage of the exploration. We evaluate our framework on a real-world indoor map dataset, achieving up to an 18.8% improvement over the strongest state-of-the-art baseline, with even greater gains compared to conventional frontier-based algorithms.
+              Path planning for robotic exploration is challenging, requiring reasoning over unknown spaces and anticipating future observations. Efficient exploration requires selecting budget-constrained paths that maximize information gain. Despite advances in autonomous exploration, existing algorithms still fall short of human performance, particularly in structured environments where predictive cues exist but are underutilized. Guided by insights from our user study, we introduce <strong>MapExRL</strong>, which improves robot exploration efficiency in structured indoor environments by enabling longer-horizon planning through a <em>learned policy and global map predictions</em>. Unlike many learning-based exploration methods that use motion primitives as the action space, our approach leverages frontiers for more efficient model learning and longer horizon reasoning. Our framework generates global map predictions from the observed map, which our policy utilizes, along with the prediction uncertainty, estimated sensor coverage, frontier distance, and remaining distance budget, to assess the strategic long-term value of frontiers. By leveraging multiple frontier scoring methods and additional context, our policy makes more informed decisions at each stage of the exploration. We evaluate our framework on a real-world indoor map dataset, achieving up to an <strong>18.8% improvement</strong> over the strongest state-of-the-art baseline, with even greater gains compared to conventional frontier-based algorithms.
             </p>
           </div>
         </div>
@@ -418,36 +418,39 @@
         <div class="columns is-centered">
           <div class="column is-four-fifths">
             <h2 class="title is-3 has-text-centered">Human-Inspired Exploration: Understanding How People Navigate the Unknown</h2>
-            <p>To design an exploration policy that mirrors human-level decision-making, we first needed to understand how people explore unknown environments. Our motivation was to uncover the long-term strategies, contextual cues, and prioritization methods that humans intuitively use—elements often missing from existing robotic systems.</p>
-            <p>We conducted a user study where 13 participants of varying robotics experience were tasked with selecting frontiers to explore based on partial map observations and global map predictions. Participants navigated through three different building layouts, attempting to maximize their understanding of the environment within a fixed exploration budget. By analyzing their behaviors, we aimed to answer key questions about human performance, strategic adaptation, and the role of map context in decision-making.</p>
-                        <p>Below is a video of one of the participants performing the task.</p>
+            <p style="margin-bottom: 1.5em;">To design an exploration policy that mirrors <strong>human-level decision-making</strong>, we first needed to understand how people explore unknown environments. Our motivation was to uncover the <em>long-term strategies</em>, <em>contextual cues</em>, and <em>prioritization methods</em> that humans intuitively use—elements often missing from existing robotic systems.</p>
+            
+            <p style="margin-bottom: 1.5em;">We conducted a <strong>user study</strong> where <strong>13 participants</strong> of varying robotics experience were tasked with selecting frontiers to explore based on partial map observations and global map predictions. Participants navigated through three different building layouts, attempting to maximize their understanding of the environment within a <em>fixed exploration budget</em>.</p>
+            
+            <p style="margin-bottom: 1.5em;">Below is a video of one of the participants performing the task.</p>
             <video autoplay loop muted style="width: 100%; height: auto; border-radius: 8px; margin: 1em 0;">
-              <source src="assets/user_study.mp4" type="video/mp4">
+              <source src="assets/user_study_compressed.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
             <h3 style="font-size: 1.3em; font-weight: 600; margin: 2em 0 1em 0; color: #34495e; text-align: center;">Insights from the User Study</h3>
-            <p style="font-size: 1.1em; line-height: 1.6; margin-bottom: 1.5em; color: #2c3e50;">From the study, we observed that high-performing participants did not simply maximize map coverage—they strategically prioritized exploring uncertain regions in the predicted map, aimed to minimize backtracking, and adapted their strategies based on the map's scale and structure. These behaviors highlighted key decision-making traits like budget awareness, long-horizon planning, and context-driven action selection.</p>
-            <p style="font-size: 1.1em; font-weight: 600; margin-bottom: 1em; color: #34495e;">We translated these insights into the design of our RL policy by:</p>
-            <ul style="list-style: none; padding-left: 0; margin-bottom: 1.5em;">
-              <li style="position: relative; padding-left: 2em; margin-bottom: 0.8em; font-size: 1.05em; line-height: 1.5; color: #2c3e50;">
+            <p style="margin-bottom: 1.5em;">From the study, we observed that high-performing participants did not simply maximize map coverage—they strategically prioritized exploring <em>uncertain regions</em> in the predicted map, aimed to <em>minimize backtracking</em>, and adapted their strategies based on the map's scale and structure. These behaviors highlighted key decision-making traits like <strong>budget awareness</strong>, <strong>long-horizon planning</strong>, and <strong>context-driven action selection</strong>.</p>
+            
+            <p style="font-weight: 600; margin-bottom: 1em;">We translated these insights into the design of our RL policy by:</p>
+            <ul style="list-style: none; padding-left: 0; margin-bottom: 2em;">
+              <li style="position: relative; padding-left: 2em; margin-bottom: 0.8em; line-height: 1.5;">
                 <span style="position: absolute; left: 0; color: #3498db; font-weight: bold; font-size: 1.2em;">•</span>
-                Incorporating global map predictions to prioritize uncertain and informative areas,
+                Incorporating <strong>global map predictions</strong> to prioritize uncertain and informative areas,
               </li>
-              <li style="position: relative; padding-left: 2em; margin-bottom: 0.8em; font-size: 1.05em; line-height: 1.5; color: #2c3e50;">
+              <li style="position: relative; padding-left: 2em; margin-bottom: 0.8em; line-height: 1.5;">
                 <span style="position: absolute; left: 0; color: #3498db; font-weight: bold; font-size: 1.2em;">•</span>
-                Balancing exploration and exploitation via multiple frontier scoring metrics,
+                Balancing exploration and exploitation via <strong>multiple frontier scoring metrics</strong>,
               </li>
-              <li style="position: relative; padding-left: 2em; margin-bottom: 0.8em; font-size: 1.05em; line-height: 1.5; color: #2c3e50;">
+              <li style="position: relative; padding-left: 2em; margin-bottom: 0.8em; line-height: 1.5;">
                 <span style="position: absolute; left: 0; color: #3498db; font-weight: bold; font-size: 1.2em;">•</span>
-                Adapting to varying map scales and layouts,
+                Adapting to <strong>varying map scales and layouts</strong>,
               </li>
-              <li style="position: relative; padding-left: 2em; margin-bottom: 0.8em; font-size: 1.05em; line-height: 1.5; color: #2c3e50;">
+              <li style="position: relative; padding-left: 2em; margin-bottom: 0.8em; line-height: 1.5;">
                 <span style="position: absolute; left: 0; color: #3498db; font-weight: bold; font-size: 1.2em;">•</span>
-                Embedding budget-awareness directly into the observation space,
+                Embedding <strong>budget-awareness</strong> directly into the observation space,
               </li>
-              <li style="position: relative; padding-left: 2em; margin-bottom: 0.8em; font-size: 1.05em; line-height: 1.5; color: #2c3e50;">
+              <li style="position: relative; padding-left: 2em; margin-bottom: 0.8em; line-height: 1.5;">
                 <span style="position: absolute; left: 0; color: #3498db; font-weight: bold; font-size: 1.2em;">•</span>
-                And using frontiers instead of motion primitives to enable longer-horizon, strategic decision-making.
+                And using <strong>frontiers</strong> instead of motion primitives to enable longer-horizon, strategic decision-making.
               </li>
             </ul>
             <video autoplay loop muted style="width: 100%; height: auto; border-radius: 8px; margin: 2em 0;">
